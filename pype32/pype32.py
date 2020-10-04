@@ -1410,21 +1410,39 @@ class PE(object):
             rd.setOffset(stream.offset.value)
             rd2 = utils.ReadData(rd.read(stream.size.value))
             stream.info = []
-            if name == b"#~" or i == 0:
+            if name == b"#~":
                 stream.info = rd2
-            elif name == b"#Strings" or i == 1:
+            elif name == b"#Strings":
                 while len(rd2) > 0:
                     offset = rd2.tell()
                     stream.info.append({ offset: rd2.readDotNetString() })
-            elif name == b"#US" or i == 2:
+            elif name == b"#US":
                 while len(rd2) > 0:
                     offset = rd2.tell()
                     stream.info.append({ offset: rd2.readDotNetUnicodeString() })
-            elif name == b"#GUID" or i == 3:
+            elif name == b"#GUID":
                 while len(rd2) > 0:
                     offset = rd2.tell()
                     stream.info.append({ offset: rd2.readDotNetGuid() })
-            elif name == b"#Blob" or i == 4:
+            elif name == b"#Blob":
+                while len(rd2) > 0:
+                    offset = rd2.tell()
+                    stream.info.append({ offset: rd2.readDotNetBlob() })
+            elif i == 0:
+                stream.info = rd2
+            elif i == 1:
+                while len(rd2) > 0:
+                    offset = rd2.tell()
+                    stream.info.append({ offset: rd2.readDotNetString() })
+            elif i == 2:
+                while len(rd2) > 0:
+                    offset = rd2.tell()
+                    stream.info.append({ offset: rd2.readDotNetUnicodeString() })
+            elif i == 3:
+                while len(rd2) > 0:
+                    offset = rd2.tell()
+                    stream.info.append({ offset: rd2.readDotNetGuid() })
+            elif i == 4:
                 while len(rd2) > 0:
                     offset = rd2.tell()
                     stream.info.append({ offset: rd2.readDotNetBlob() })
