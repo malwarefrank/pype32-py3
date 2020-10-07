@@ -322,6 +322,9 @@ class ReadData(object):
         #if value >= len(self.data):
         #    raise excep.WrongOffsetValueException("Wrong offset value. Must be less than %d" % len(self.data))
         self.offset = value
+
+    def seek(self, value):
+        self.setOffset(value)
     
     def readAt(self, offset, size):
         """

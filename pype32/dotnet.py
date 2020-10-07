@@ -46,10 +46,12 @@ class StringHeapIndex(object):
         cache = caching.getCache(funcname)
         result = cache.get(offset)
         if result is not None: return result
-        for i in self.streams[b"#Strings"].info:
-            cache.put(*next(iter(i.items())))
-
-        return cache.get(offset)
+        rd = self.streams[b"#Strings"].info
+        rd.seek(offset)
+        s = rd.readDotNetString()
+        # add to cache
+        cache.put(offset, s)
+        return s
 
     def parse(self, readDataInstance):
         if self.dt.netMetaDataTableHeader.heapOffsetSizes.value & 0x1:

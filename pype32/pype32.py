@@ -1413,9 +1413,10 @@ class PE(object):
             if name == b"#~":
                 stream.info = rd2
             elif name == b"#Strings":
-                while len(rd2) > 0:
-                    offset = rd2.tell()
-                    stream.info.append({ offset: rd2.readDotNetString() })
+                stream.info = rd2
+                #while len(rd2) > 0:
+                #    offset = rd2.tell()
+                #    stream.info.append({ offset: rd2.readDotNetString() })
             elif name == b"#US":
                 while len(rd2) > 0:
                     offset = rd2.tell()
@@ -1431,9 +1432,10 @@ class PE(object):
             elif i == 0:
                 stream.info = rd2
             elif i == 1:
-                while len(rd2) > 0:
-                    offset = rd2.tell()
-                    stream.info.append({ offset: rd2.readDotNetString() })
+                stream.info = rd2
+                #while len(rd2) > 0:
+                #    offset = rd2.tell()
+                #    stream.info.append({ offset: rd2.readDotNetString() })
             elif i == 2:
                 while len(rd2) > 0:
                     offset = rd2.tell()
